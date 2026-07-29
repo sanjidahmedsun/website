@@ -290,9 +290,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   updateScrollProgress();
 
-  // 6. Instant Smooth Scroll Navigation for Anchor Links
+  // 6. Instant Smooth Scroll Navigation for Anchor Links & Mobile Menu Toggle
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  if (mobileToggle && navLinks) {
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
+      if (mobileToggle && navLinks) {
+        mobileToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+      }
+
       const targetId = this.getAttribute('href');
       if (!targetId || targetId === '#') return;
       const targetEl = document.querySelector(targetId);
